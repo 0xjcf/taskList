@@ -10,7 +10,10 @@ const loadEventListeners = () => {
   form.addEventListener('submit', addTask);
   // Remove task event
   taskList.addEventListener('click', removeTask);
+  // Clear all task
+  clearBtn.addEventListener('click', clearTasks);
 };
+
 // Add task
 const addTask = (e) => {
   if (taskInput.value === '') {
@@ -37,12 +40,20 @@ const addTask = (e) => {
 
   e.preventDefault();
 }
+
 // Remove tasks
 const removeTask = (e) => {
   if (e.target.parentElement.classList.contains('delete-item')) {
     if (confirm('Are you sure?')) {
       e.target.parentElement.parentElement.remove();
     }
+  }
+}
+
+// Clear all tasks
+const clearTasks = () => {
+  while (taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
   }
 }
 
