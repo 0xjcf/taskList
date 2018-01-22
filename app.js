@@ -6,11 +6,14 @@ const taskInput = document.querySelector('#task');
 
 // Load event listeners
 const loadEventListeners = () => {
+  // Add task event
   form.addEventListener('submit', addTask);
+  // Remove task event
+  taskList.addEventListener('click', removeTask);
 };
 // Add task
 const addTask = (e) => {
-  if(taskInput.value === '') {
+  if (taskInput.value === '') {
     alert('add a task');
   }
 // Create li item
@@ -31,7 +34,14 @@ const addTask = (e) => {
   taskList.appendChild(li);
 // Clear input
   taskInput.value = '';
+
   e.preventDefault();
+}
+// Remove tasks
+const removeTask = (e) => {
+  if (e.target.parentElement.classList.contains('delete-item')) {
+    e.target.parentElement.parentElement.remove();
+  }
 }
 
 loadEventListeners();
