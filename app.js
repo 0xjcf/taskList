@@ -6,6 +6,8 @@ const taskInput = document.querySelector('#task');
 
 // Load event listeners
 const loadEventListeners = () => {
+  // DOM content load event
+  document.addEventListener('DOMContentLoaded', getTasks);
   // Add task event
   form.addEventListener('submit', addTask);
   // Remove task event
@@ -14,6 +16,29 @@ const loadEventListeners = () => {
   clearBtn.addEventListener('click', clearTasks);
   // Filter through task event
   filter.addEventListener('input', filterTasks);
+};
+
+// Get tasks from local storage
+getTasks = () => {
+  let tasks;
+  if (localStorage.getItem('tasks') === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.forEach(task => {
+    const li = document.createElement('li');
+    li.className = 'collection-item';
+    li.appendChild(document.createTextNode(task));
+
+    const link = document.createElement('a');
+    link.className = 'delete-item secondary-content';
+    link.innerHTML = '<i class="fa fa-remove"></i>';
+
+    li.appendChild(link);
+    taskList.appendChild(li);
+  });
 };
 
 // Add task
