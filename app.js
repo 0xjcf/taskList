@@ -89,11 +89,32 @@ storeTaskInLocalStorage = (task) => {
 
 // Remove tasks
 const removeTask = (e) => {
+  const li = e.target.parentElement.parentElement;
   if (e.target.parentElement.classList.contains('delete-item')) {
     if (confirm('Are you sure?')) {
-      e.target.parentElement.parentElement.remove();
+      li.remove();
+      // Remove from local storage
+      removeTaskFromLocalStorage(li);
     }
   }
+}
+
+// Remove from local storage
+const removeTaskFromLocalStorage = (taskItem) => {
+  let tasks;
+  if (localStorage.getItem('tasks') === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.forEach((task, index) => {
+    if (taskItem.textContent === task) {
+      tasks.splice(index, 1);
+    }
+  });
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Clear all tasks
