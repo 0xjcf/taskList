@@ -122,6 +122,13 @@ const clearTasks = () => {
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
+  // Clear all tasks from local storage
+  clearAllTaskFromLocalStorage();
+}
+
+// Clear all tasks from local storage
+clearAllTaskFromLocalStorage = () => {
+  localStorage.clear();
 }
 
 // Filter through tasks
